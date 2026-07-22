@@ -1,9 +1,9 @@
-import { Text, View } from "react-native";
+import { View, Text } from 'react-native';
 
 export default function AboutScreen() {
   return (
-    <View>
-      <Text>About Screen</Text>
+    <View className="flex-1 justify-center items-center">
+      <Text className="text-xl">About Grocify</Text>
     </View>
   );
 }
