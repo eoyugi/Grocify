@@ -5,8 +5,11 @@
   "dependencies": {
     "@clerk/expo": "^3.7.8",
     "@expo/ui": "~57.0.7",
+    "@neondatabase/serverless": "^1.1.0",
     "@react-navigation/native": "^7.3.13",
     "babel-preset-expo": "^57.0.3",
+    "dotenv": "^17.4.2",
+    "drizzle-orm": "^0.45.2",
     "expo": "~57.0.7",
     "expo-constants": "~57.0.6",
     "expo-device": "~57.0.1",
@@ -36,6 +39,9 @@
   },
   "devDependencies": {
     "@types/react": "~19.2.2",
+    "cross-env": "^7.0.3",
+    "dotenv-cli": "^8.0.0",
+    "drizzle-kit": "^0.31.10",
     "typescript": "~6.0.3"
   },
   "scripts": {
@@ -44,7 +50,11 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "db:push": "cross-env DATABASE_URL=postgresql://neondb_owner:npg_rPnVKBqQl7H4@ep-weathered-breeze-au3srlpe.c-10.us-east-1.aws.neon.tech/neondb?sslmode=require drizzle-kit push --config ./drizzle.config.ts",
+    "db:generate": "cross-env DATABASE_URL=postgresql://neondb_owner:npg_rPnVKBqQl7H4@ep-weathered-breeze-au3srlpe.c-10.us-east-1.aws.neon.tech/neondb?sslmode=require drizzle-kit generate --config ./drizzle.config.ts",
+    "db:studio": "cross-env DATABASE_URL=postgresql://neondb_owner:npg_rPnVKBqQl7H4@ep-weathered-breeze-au3srlpe.c-10.us-east-1.aws.neon.tech/neondb?sslmode=require drizzle-kit studio --config ./drizzle.config.ts",
+    "seed:grocery": "node ./scripts/seed-grocery.js"
   },
   "private": true
 }
