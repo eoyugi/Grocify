@@ -1,4 +1,4 @@
-import '../../global.css'; // must be first import
+import '../../global.css';
 import { ClerkProvider, ClerkLoaded } from '@clerk/expo';
 import { tokenCache } from '@clerk/expo/token-cache';
 import { Slot } from 'expo-router';
