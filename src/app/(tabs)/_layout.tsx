@@ -1,11 +1,21 @@
 import { useAuth } from '@clerk/expo';
 import { Redirect, Tabs } from 'expo-router';
-import { useColorScheme } from 'react-native';
+import { useEffect } from 'react';
+import { useColorScheme } from 'nativewind';
 import { House, Settings, CalendarDays, BarChart3 } from 'lucide-react-native';
+import { useGroceryStore } from '@/store/grocery-store';
 
 export default function TabsLayout() {
   const { isSignedIn, isLoaded } = useAuth();
-  const colorScheme = useColorScheme();
+  const { loadItems, items } = useGroceryStore();
+  const { colorScheme } = useColorScheme();
+
+  const isDark = colorScheme === 'dark';
+  const tabTintColor = isDark ? 'hsl(142 70% 54%)' : 'hsl(147 75% 33%)';
+
+  useEffect(() => {
+    loadItems();
+  }, []);
 
   if (!isLoaded) {
     return null;
@@ -20,9 +30,9 @@ export default function TabsLayout() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: colorScheme === 'dark' ? '#1a1a1a' : '#ffffff',
+          backgroundColor: isDark ? '#1a1a1a' : '#ffffff',
         },
-        tabBarActiveTintColor: colorScheme === 'dark' ? '#4ade80' : '#16a34a',
+        tabBarActiveTintColor: tabTintColor,
       }}
     >
       <Tabs.Screen
@@ -36,7 +46,6 @@ export default function TabsLayout() {
         name="planner"
         options={{
           title: 'Planner',
-          // tabBarBadge: '9+',          // <-- shows "9+" badge
           tabBarIcon: ({ color, size }) => <CalendarDays size={size} color={color} />,
         }}
       />
@@ -44,7 +53,6 @@ export default function TabsLayout() {
         name="insights"
         options={{
           title: 'Insights',
-          // tabBarBadge: '',            // <-- shows just a red dot (no number)
           tabBarIcon: ({ color, size }) => <BarChart3 size={size} color={color} />,
         }}
       />
