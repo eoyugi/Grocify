@@ -1,8 +1,8 @@
 import { SignIn, SignUp } from '@clerk/expo/web';
-import { useState } from 'react';
 import { Image } from 'expo-image';
 import { View, Text, ScrollView, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useState } from 'react';
 
 export default function AuthScreen() {
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
@@ -61,9 +61,9 @@ export default function AuthScreen() {
           {/* Auth component */}
           <View className="w-full flex items-center">
             {mode === 'signin' ? (
-              <SignIn fallbackRedirectUrl="/" />
+              <SignIn fallbackRedirectUrl="/(tabs)" />
             ) : (
-              <SignUp fallbackRedirectUrl="/" />
+              <SignUp fallbackRedirectUrl="/(tabs)" />
             )}
           </View>
         </View>
