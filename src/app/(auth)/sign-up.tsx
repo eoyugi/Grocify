@@ -46,7 +46,7 @@ export default function SignUpScreen() {
           </Text>
 
           <View className="mt-6 w-full">
-            <SignUp />
+            <SignUp fallbackRedirectUrl="/(tabs)" />
           </View>
         </View>
       </ScrollView>

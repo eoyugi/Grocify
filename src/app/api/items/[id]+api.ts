@@ -4,11 +4,27 @@ import {
   updateGroceryItemQuantity,
 } from '@/lib/server/db-actions';
 
-export async function PATCH(request: Request, { id }: { id: string }) {
+function getItemId(request: Request, context?: { params?: { id?: string } }) {
+  const contextId = context?.params?.id;
+  if (contextId) {
+    return contextId;
+  }
+
+  const pathname = new URL(request.url).pathname;
+  const segments = pathname.split('/').filter(Boolean);
+  return segments[segments.length - 1] ?? '';
+}
+
+export async function PATCH(request: Request, context?: { params?: { id?: string } }) {
   try {
+    const id = getItemId(request, context);
+    if (!id) {
+      return Response.json({ error: 'Missing item ID.' }, { status: 400 });
+    }
+
     const body = await request.json();
 
-    const item = body.quantity
+    const item = 'quantity' in body
       ? await updateGroceryItemQuantity(id, body.quantity)
       : await setGroceryItemPurchased(id, body.purchased ?? true);
 
@@ -23,8 +39,13 @@ export async function PATCH(request: Request, { id }: { id: string }) {
   }
 }
 
-export async function DELETE(_request: Request, { id }: { id: string }) {
+export async function DELETE(request: Request, context?: { params?: { id?: string } }) {
   try {
+    const id = getItemId(request, context);
+    if (!id) {
+      return Response.json({ error: 'Missing item ID.' }, { status: 400 });
+    }
+
     await deleteGroceryItem(id);
     return Response.json({ ok: true });
   } catch (error) {

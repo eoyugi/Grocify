@@ -5,8 +5,10 @@
   "dependencies": {
     "@clerk/expo": "^3.7.8",
     "@expo/ui": "~57.0.7",
+    "@expo/vector-icons": "^15.0.2",
     "@neondatabase/serverless": "^1.1.0",
     "@react-navigation/native": "^7.3.13",
+    "@sentry/react-native": "^8.21.0",
     "babel-preset-expo": "^57.0.3",
     "dotenv": "^17.4.2",
     "drizzle-orm": "^0.45.2",
